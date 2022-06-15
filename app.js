@@ -6,6 +6,13 @@ const hbs = require('hbs');
 // require spotify-web-api-node package here:
 const SpotifyWebApi = require('spotify-web-api-node');
 const app = express();
+// app.js
+
+// 1. require the body-parser
+const bodyParser = require('body-parser');
+// 2. let know your app you will be using it
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
@@ -29,12 +36,12 @@ app.get('/', (req, res, next) => {
 })
 
 app.get('/artist-search', (req, res) => {
-    const {search} = req.params;
-    spotifyApi.searchArtists(search)
+  console.log(req.query.artistName)
+  const {artistName} = req.query;
+  spotifyApi
+  .searchArtists(artistName)
   .then(data => {
-    console.log('The received data from the API: ', data.body);
-    // ----> 'HERE WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
-    res.send('/search')
+    res.render("artist-search-results", data);
   })
   .catch(err => console.log('The error while searching artists occurred: ', err));
 })
