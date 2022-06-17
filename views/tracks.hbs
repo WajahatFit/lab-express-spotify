@@ -1,0 +1,13 @@
+<div>
+    {{#each track}}
+
+    <h3>{{name}}</h3>
+    {{#if preview_url}}
+    <audio src="{{preview_url}}"> Your browser don't support <code>audio</code>.
+    </audio>
+    {{#else}}
+    <p>Preview can't be seen!</p>
+    {{/if}}
+
+    {{/each}}
+</div>
